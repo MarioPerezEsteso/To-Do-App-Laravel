@@ -14,14 +14,18 @@
                     <input type="text" class="form-control add-todo" placeholder="Add task">
                     <hr>
                     <ul id="sortable" class="list-unstyled">
-                        <li>
-                            <label>
-                                <a href="#" class="btn btn-danger btn-sm">
-                                    <span class="glyphicon glyphicon-trash"></span>    
-                                </a>
-                                Take out the trash
-                            </label>
-                        </li>
+                        @if (!empty($tasks) && count($tasks) > 0)
+                            @foreach ($tasks as $task)
+                                <li>
+                                    <label>
+                                        <a href="{{ url('task/delete/' . $task->id) }}" class="btn btn-danger btn-sm">
+                                            <span class="glyphicon glyphicon-trash"></span>    
+                                        </a>
+                                        {{ $task->task }}
+                                    </label>
+                                </li>
+                            @endforeach
+                        @endif
                     </ul>
                 </div>
             </div>
