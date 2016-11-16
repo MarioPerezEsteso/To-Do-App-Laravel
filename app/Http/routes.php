@@ -11,6 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [
+    'uses'          => 'TaskController@index',    
+]);
+
+Route::post('task/store', [
+    'before'        => 'csrf',
+    'uses'          => 'TaskController@store'
+]);
+
+Route::post('task/delete/{id}', [
+    'before'        => 'csrf',
+    'uses'          => 'TaskController@destroy'
+]);
