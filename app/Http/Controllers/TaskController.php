@@ -6,9 +6,23 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Repositories\TaskRepository;
 
 class TaskController extends Controller
 {
+    /**
+     * @var TaskRepository
+     */
+    protected $taskRepository;
+        
+    /**
+     * Class constructor.
+     */
+    public function __construct(TaskRepository $taskRepository)
+    {
+        $this->taskRepository = $taskRepository;   
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +30,8 @@ class TaskController extends Controller
      */
     public function index()
     {
-        return view('index');
+        $tasks = $this->taskRepository->all();
+        return view('index', compact('tasks'));
     }
 
     /**
