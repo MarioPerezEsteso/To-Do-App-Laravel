@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Repositories\TaskRepository;
+use Illuminate\Support\Facades\Redirect;
 
 class TaskController extends Controller
 {
@@ -53,6 +54,7 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->taskRepository->destroy($id);
+        return Redirect::to('/');
     }
 }

@@ -20,7 +20,6 @@ Route::post('task/store', [
     'uses'          => 'TaskController@store'
 ]);
 
-Route::post('task/delete/{id}', [
-    'before'        => 'csrf',
+Route::get('task/delete/{id}', [
     'uses'          => 'TaskController@destroy'
 ]);
