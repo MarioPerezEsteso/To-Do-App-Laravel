@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Repositories\TaskRepository;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 
 class TaskController extends Controller
 {
@@ -43,7 +44,21 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = [
+            'task' => $request->task,    
+        ];
+        
+        $validator = Validator::make($data, [
+            'task' => 'required|max:255',
+        ]);
+        
+        if ($validator->fails()) {
+            return Redirect::to('/')->withErrors($validator);
+        }
+        
+        $this->taskRepository->create($data);
+        
+        return Redirect::to('/');
     }
 
     /**

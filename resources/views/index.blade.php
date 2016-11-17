@@ -11,8 +11,21 @@
             <div class="col-md-offset-3 col-md-6">
                 <div class="todolist not-done">
                     <h1>Tasks</h1>
-                    <input type="text" class="form-control add-todo" placeholder="Add task">
+                    <form action="task/store" method="post">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="text" class="form-control add-todo" name="task" placeholder="Add task">
+                    </form>
                     <hr>
+                    @if (count($errors) > 0)
+                        <!-- Form Error List -->
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <ul id="sortable" class="list-unstyled">
                         @if (!empty($tasks) && count($tasks) > 0)
                             @foreach ($tasks as $task)
